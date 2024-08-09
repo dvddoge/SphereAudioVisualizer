@@ -1,0 +1,84 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+#scene-container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+#instructions {
+    position: absolute;
+    top: 10px;
+    color: white;
+    z-index: 10;
+}
+
+input[type="file"] {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 100;
+    padding: 10px 20px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #1f4037, #99f2c8);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
+
+input[type="file"]::file-selector-button {
+    visibility: hidden;
+}
+
+input[type="file"]::before {
+    content: 'Escolher Áudio';
+    font-size: 16px;
+    color: white;
+    display: inline-block;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #1f4037, #99f2c8);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+input[type="file"]:hover::before {
+    background: linear-gradient(135deg, #1f4037, #66d3a5);
+}
+
+#playPauseButton {
+    position: absolute;
+    top: 75px;
+    left: 10px;
+    z-index: 100;
+    padding: 10px 20px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
+
+#playPauseButton:hover {
+    background: linear-gradient(135deg, #ff416c, #ff7b5b);
+}
+
+#playPauseButton:disabled {
+    background: #555;
+    cursor: not-allowed;
+}

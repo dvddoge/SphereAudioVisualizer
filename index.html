@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizador de Áudio 3D com Neon</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dat.gui@0.7.6/build/dat.gui.min.js"></script>
+<body>
+    <input type="file" id="audioFileInput" accept="audio/*">
+    <div id="instructions">Escolha um arquivo de áudio para iniciar o visualizador</div>
+    <button id="playPauseButton" disabled>Play</button>
+    <div id="scene-container"></div>
+    <script src="script.js"></script>
+</body>
+</html>
