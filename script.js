@@ -19,6 +19,10 @@ let isPlaying = false;
 let startTime = 0;
 let pausedAt = 0;
 
+let sphereRotation = { x: 0, y: 0 };
+
+let animationFrameId;
+
 const vertexShader = `
 varying vec3 vNormal;
 
@@ -77,6 +81,9 @@ function createSphere() {
     sphereGeometry = new THREE.SphereGeometry(settings.sphereRadius, 64, 64);
     sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
     scene.add(sphere);
+
+    sphereRotation.x = 0;
+    sphereRotation.y = 0;
 }
 
 function setupAudio(file) {
@@ -84,11 +91,14 @@ function setupAudio(file) {
         audioContext = new (window.AudioContext || window.webkitAudioContext)();
     }
 
-    // Stop the current audio if playing
     if (bufferSource && isPlaying) {
         bufferSource.stop();
         isPlaying = false;
         playPauseButton.textContent = 'Play';
+    }
+
+    if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
     }
 
     const reader = new FileReader();
@@ -130,13 +140,13 @@ function playAudio() {
 
 function togglePlayPause() {
     if (bufferSource && isPlaying) {
-        // Pause the audio
+        
         bufferSource.stop();
         pausedAt += audioContext.currentTime - startTime;
         playPauseButton.textContent = 'Play';
         isPlaying = false;
     } else {
-        // Play or resume the audio
+        
         playAudio();
         playPauseButton.textContent = 'Pause';
         isPlaying = true;
@@ -144,7 +154,8 @@ function togglePlayPause() {
 }
 
 function animate() {
-    requestAnimationFrame(animate);
+
+    animationFrameId = requestAnimationFrame(animate);
 
     if (analyser && dataArray && isPlaying) {
         analyser.getByteFrequencyData(dataArray);
@@ -161,8 +172,11 @@ function animate() {
         positions.needsUpdate = true;
     }
 
-    sphere.rotation.x += settings.rotationSpeedX;
-    sphere.rotation.y += settings.rotationSpeedY;
+
+    sphereRotation.x += settings.rotationSpeedX;
+    sphereRotation.y += settings.rotationSpeedY;
+    sphere.rotation.x = sphereRotation.x;
+    sphere.rotation.y = sphereRotation.y;
     sphereMaterial.uniforms.time.value += 0.05;
 
     renderer.render(scene, camera);
